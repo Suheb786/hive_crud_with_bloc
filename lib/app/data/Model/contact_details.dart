@@ -4,9 +4,15 @@ part 'contact_details.g.dart';
 @HiveType(typeId: 1)
 class ContactModel {
   @HiveField(0)
-  final String name;
+  String name;
   @HiveField(1)
-  final int phone;
+  int phone;
+  @HiveField(2)
+  var email;
 
-  ContactModel(this.name, this.phone);
+  ContactModel(
+    this.name,
+    this.phone,
+    this.email,
+  );
 }

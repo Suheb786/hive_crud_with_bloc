@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
 import 'package:hive_crud_with_bloc/app/module/add_contact/views/add_contact_view.dart';
+import 'package:hive_crud_with_bloc/app/module/add_contact/views/update_contact_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/constants/colors.dart';
@@ -16,8 +19,11 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
+String? nullText; //! in case of email is shows null
+
 class _HomeViewState extends State<HomeView> {
   late Box<ContactModel> contactBox;
+
   @override
   void initState() {
     contactBox = Hive.box("ContactBox");
@@ -49,9 +55,20 @@ class _HomeViewState extends State<HomeView> {
                           return ListTile(
                             title: Text(modelContact!.name,
                                 style: TextStyle(color: Colors.white)),
-                            subtitle: Text(
-                              "${modelContact.phone}",
-                              style: TextStyle(color: Colors.white),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  "${modelContact.phone}",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                // if (nullText != null)
+                                Text(
+                                  "  ${modelContact.email}",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              ],
                             ),
                             dense: false,
                             leading: CircleAvatar(
@@ -61,64 +78,81 @@ class _HomeViewState extends State<HomeView> {
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: LIGHT_GREEN,
-                                  radius: 30,
-                                  child: InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) {
-                                            return AlertDialog(
-                                              backgroundColor: LIGHT_GREEN,
-                                              title: Text(
-                                                "Confirmation to delete ",
-                                                style: TextStyle(
-                                                    color: Colors.white70),
-                                              ),
-                                              content: Text(
-                                                "You desire to delete ${modelContact.name} from your Contacts",
-                                                style: TextStyle(
-                                                    color: Colors.white70),
-                                              ),
-                                              actions: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Text(
-                                                          "Cancel",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white54),
-                                                        )),
-                                                    SizedBox(
-                                                      width: 20,
-                                                    ),
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          contactBox
-                                                              .delete(key);
-                                                        },
-                                                        child: Text(
-                                                          "Delete",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .red[700]),
-                                                        ))
-                                                  ],
-                                                )
-                                              ],
-                                            );
-                                          });
-                                    },
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(builder: (ctx) {
+                                      return UpdateContact(
+                                        // index: index,
+                                        // key: key,
+                                        keyID: key,
+                                      );
+                                    }));
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: LIGHT_GREEN,
+                                    child: Icon(Icons.edit),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return AlertDialog(
+                                            backgroundColor: LIGHT_GREEN,
+                                            title: Text(
+                                              "Confirmation to delete ",
+                                              style: TextStyle(
+                                                  color: Colors.white70),
+                                            ),
+                                            content: Text(
+                                              "You desire to delete ${modelContact.name} from your Contacts",
+                                              style: TextStyle(
+                                                  color: Colors.white70),
+                                            ),
+                                            actions: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white54),
+                                                      )),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        contactBox.delete(key);
+                                                      },
+                                                      child: Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .red[700]),
+                                                      ))
+                                                ],
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: LIGHT_GREEN,
+                                    radius: 20,
                                     child: Icon(
                                       Icons.delete,
                                       color: Colors.red[700],

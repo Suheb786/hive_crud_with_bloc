@@ -8,13 +8,6 @@ part 'add_contact_event.dart';
 part 'add_contact_state.dart';
 
 class AddContactBloc extends Bloc<AddContactEvent, AddContactState> {
-  TextEditingController nameCtrl = TextEditingController();
-  TextEditingController mobileNOCtrl = TextEditingController();
-  TextEditingController emailCtrl = TextEditingController();
-
-  late final key = nameCtrl.text;
-  late final value = mobileNOCtrl.text;
-
   late Box<ContactModel> contactBox;
 
   AddContactBloc() : super(AddContactInitial()) {
@@ -29,11 +22,6 @@ class AddContactBloc extends Bloc<AddContactEvent, AddContactState> {
         emit(AddContactValid());
       }
     });
-  }
-
-  void check_and_save() {
-    ContactModel modelvalue = ContactModel(key, int.parse(value));
-    contactBox.add(modelvalue);
   }
 
   RegExp emailRex = RegExp(

@@ -19,17 +19,20 @@ class ContactModelAdapter extends TypeAdapter<ContactModel> {
     return ContactModel(
       fields[0] as String,
       fields[1] as int,
+      fields[2] as dynamic,
     );
   }
 
   @override
   void write(BinaryWriter writer, ContactModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.phone);
+      ..write(obj.phone)
+      ..writeByte(2)
+      ..write(obj.email);
   }
 
   @override

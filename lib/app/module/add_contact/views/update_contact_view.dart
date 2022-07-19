@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -11,16 +10,20 @@ import 'package:hive_crud_with_bloc/app/data/constants/colors.dart';
 import 'package:hive_crud_with_bloc/app/data/widgets/customTextFormField.dart';
 import 'package:hive_crud_with_bloc/app/module/add_contact/bloc/add_contact_bloc.dart';
 
-class AddContact extends StatefulWidget {
-  const AddContact({Key? key}) : super(key: key);
+class UpdateContact extends StatefulWidget {
+  int keyID;
+  UpdateContact({
+    Key? key,
+    required this.keyID,
+  }) : super(key: key);
 
   @override
-  State<AddContact> createState() => _AddContactState();
+  State<UpdateContact> createState() => _UpdateContactState();
 }
 
 late Box<ContactModel> contactBox;
 
-class _AddContactState extends State<AddContact> {
+class _UpdateContactState extends State<UpdateContact> {
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController mobileNOCtrl = TextEditingController();
   TextEditingController emailCtrl = TextEditingController();
@@ -32,11 +35,13 @@ class _AddContactState extends State<AddContact> {
   @override
   void initState() {
     contactBox = Hive.box("ContactBox");
+    // log(keyID);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // log(keyID);
     return Scaffold(
         backgroundColor: DARK_GREEN,
         body: Padding(
