@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/add_contact_view.dart';
+import 'package:hive_crud_with_bloc/app/module/add_contact/views/add_contact_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../data/constants/colors.dart';
@@ -21,6 +21,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     contactBox = Hive.box("ContactBox");
+
     super.initState();
   }
 
@@ -29,85 +30,115 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: LIGHT_GREEN,
-            title: Center(child: Text("Contacts"))),
+            title: Center(child: Text("Hive CRUD with Bloc on CONTACTS"))),
         backgroundColor: DARK_GREEN,
         body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              // Expanded(
-              //     child: ValueListenableBuilder<Box>(
-              //         valueListenable: contactBox.listenable(),
-              //         builder: (context, box, contacts) {
-              //           return ListView.separated(
-              //               itemBuilder: ((context, index) {
-              //                 final key = contactBox.keys.toList()[index];
-              //                 final value = contactBox.get(key);
-              //                 return ListTile(
-              //                   leading: CircleAvatar(
-              //                     backgroundColor: LIGHT_GREEN,
-              //                     child: Text("${key[0]}"),
-              //                   ),
-              //                   trailing: Row(
-              //                     mainAxisSize: MainAxisSize.min,
-              //                     children: [
-              //                       InkWell(
-              //                         // onTap: () =>
-              //                         //     Get.toNamed(Routes.UPDATE_CONTATC),
-              //                         child: Container(
-              //                           decoration: BoxDecoration(
-              //                               color: LIGHT_GREEN,
-              //                               borderRadius:
-              //                                   BorderRadius.circular(5)),
-              //                           padding: EdgeInsets.all(10),
-              //                           child: Icon(
-              //                             Icons.edit,
-              //                             color: Colors.white70,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                       SizedBox(
-              //                         width: 15,
-              //                       ),
-              //                       InkWell(
-              //                         // onTap: () => contactBox.delete(key),
-              //                         child: Container(
-              //                           decoration: BoxDecoration(
-              //                               color: LIGHT_GREEN,
-              //                               borderRadius:
-              //                                   BorderRadius.circular(5)),
-              //                           padding: EdgeInsets.all(10),
-              //                           child: Icon(
-              //                             Icons.delete,
-              //                             color: Colors.red,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                   title: Text("$key",
-              //                       style: GoogleFonts.montserrat(
-              //                           fontSize: 18,
-              //                           color: Colors.white,
-              //                           fontWeight: FontWeight.bold)),
-              //                   subtitle: Text("$value",
-              //                       style: GoogleFonts.montserrat(
-              //                           fontSize: 18,
-              //                           color: Colors.white,
-              //                           fontWeight: FontWeight.bold)),
-              //                 );
-              //               }),
-              //               separatorBuilder: ((context, index) {
-              //                 return Divider(
-              //                   color: LIGHT_GREEN,
-              //                 );
-              //               }),
-              //               itemCount: 2
-              //               //  contactBox.keys.toList().length
-              //               );
-              //         })),
+              Expanded(
+                child: ValueListenableBuilder(
+                  valueListenable: contactBox.listenable(),
+                  builder: ((context, Box<ContactModel> contacts, _) {
+                    return ListView.separated(
+                        itemBuilder: (context, index) {
+                          final key = contactBox.keys.toList()[index];
 
-              SizedBox(
+                          final ContactModel? modelContact =
+                              contactBox.get(key);
+                          return ListTile(
+                            title: Text(modelContact!.name,
+                                style: TextStyle(color: Colors.white)),
+                            subtitle: Text(
+                              "${modelContact.phone}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            dense: false,
+                            leading: CircleAvatar(
+                              backgroundColor: LIGHT_GREEN,
+                              child: Text(modelContact.name[0]),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: LIGHT_GREEN,
+                                  radius: 30,
+                                  child: InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) {
+                                            return AlertDialog(
+                                              backgroundColor: LIGHT_GREEN,
+                                              title: Text(
+                                                "Confirmation to delete ",
+                                                style: TextStyle(
+                                                    color: Colors.white70),
+                                              ),
+                                              content: Text(
+                                                "You desire to delete ${modelContact.name} from your Contacts",
+                                                style: TextStyle(
+                                                    color: Colors.white70),
+                                              ),
+                                              actions: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                          "Cancel",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white54),
+                                                        )),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          contactBox
+                                                              .delete(key);
+                                                        },
+                                                        child: Text(
+                                                          "Delete",
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .red[700]),
+                                                        ))
+                                                  ],
+                                                )
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red[700],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: ((context, index) {
+                          return Divider(
+                            color: LIGHT_GREEN,
+                          );
+                        }),
+                        itemCount: contactBox.keys.toList().length);
+                  }),
+                ),
+              ),
+              const SizedBox(
                 height: 10,
               ),
               InkWell(
