@@ -1,6 +1,10 @@
-part of 'home_bloc.dart';
+// part of 'home_bloc.dart';
 
-@immutable
-abstract class HomeState {}
+// @immutable
+// abstract class HomeState {}
 
-class HomeInitial extends HomeState {}
+// class HomeInitial extends HomeState {}
+
+// class HomeEmpty extends HomeState {}
+
+// class HomeFilled extends HomeState {}
