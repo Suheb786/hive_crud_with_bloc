@@ -6,15 +6,18 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
-import 'package:hive_crud_with_bloc/app/data/constants/colors.dart';
-import 'package:hive_crud_with_bloc/app/data/widgets/customTextFormField.dart';
-import 'package:hive_crud_with_bloc/app/data/widgets/saveButton.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/bloc/add_contact_bloc.dart';
-import 'package:hive_crud_with_bloc/app/module/home/home_view.dart';
+import '../../../data/Model/contact_details.dart';
+import '../../../data/constants/colors.dart';
+import '../../../data/widgets/customTextFormField.dart';
+import '../../../data/widgets/saveButton.dart';
+import '../bloc/add_contact_bloc.dart';
+import '../../home/home_view.dart';
+
+
+
 
 class UpdateContact extends StatefulWidget {
-  int keyValue;
+  String keyValue;
   UpdateContact({
     Key? key,
     required this.keyValue,

@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
   void Function()? onTap;
-  AutovalidateMode? autoValid;
+   AutovalidateMode? autoValid;
   Color borderColor;
   int? maxLength;
   Color fillColor;

@@ -1,20 +1,18 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/bloc/add_contact_bloc.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/views/add_contact_view.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/views/update_contact_view.dart';
-import 'package:hive_crud_with_bloc/app/module/home/cubit/home_cubit.dart';
-import 'package:hive_crud_with_bloc/app/module/home/cubit/home_state.dart';
-import 'package:hive_crud_with_bloc/app/module/home/home_bloc.dart';
+import '../../data/Model/contact_details.dart';
+import '../add_contact/bloc/add_contact_bloc.dart';
+import '../add_contact/views/add_contact_view.dart';
+import '../add_contact/views/update_contact_view.dart';
+import 'cubit/home_cubit.dart';
+import 'cubit/home_state.dart';
+import 'home_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import '../../data/constants/colors.dart';
 
 class HomeView extends StatefulWidget {
@@ -32,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     contactBox = Hive.box("ContactBox");
-
+    // contactBox.clear();
     super.initState();
   }
 
@@ -41,7 +39,8 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: LIGHT_GREEN,
-            title: Center(child: Text("Hive CRUD with Bloc on CONTACTS"))),
+            title:
+                const Center(child: Text("Hive CRUD with Bloc on CONTACTS"))),
         backgroundColor: DARK_GREEN,
         body: SafeArea(
           child: Padding(
@@ -62,14 +61,29 @@ class _HomeViewState extends State<HomeView> {
                               return ListView.separated(
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    final key = contactBox.keys.toList()[index];
+                                    final key = contactBox.keys.toList();
+                                    final keyValue = contactBox.values.toList();
+                                    keyValue.sort((a, b) {
+                                      return a.name
+                                          .toString()
+                                          .toLowerCase()
+                                          .compareTo(
+                                              b.name.toString().toLowerCase());
+                                    });
 
+                                    // final contactValue =
+                                    //     contactBox.values.toList();
+                                    // log(contactBox.keys.toString());
+                                    // log(keyValue[1].toString());
+                                    log(key.toString());
+
+                                    // log(conta)
                                     final ContactModel? modelContact =
-                                        contactBox.get(key);
+                                        keyValue[index];
                                     return ListTile(
-                                      title: Text(modelContact!.name,
+                                      title: Text("${modelContact?.name}",
                                           style:
-                                              TextStyle(color: Colors.white)),
+                                              const TextStyle(color: Colors.white)),
                                       subtitle: Align(
                                         alignment: Alignment.topLeft,
                                         child: Column(
@@ -80,14 +94,14 @@ class _HomeViewState extends State<HomeView> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
-                                              "${modelContact.phone}",
-                                              style: TextStyle(
+                                              "${modelContact?.phone}",
+                                              style: const TextStyle(
                                                   color: Colors.white),
                                             ),
                                             // if (nullText != null)
                                             Text(
-                                              "${modelContact.email}",
-                                              style: TextStyle(
+                                              "${modelContact?.email}",
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontStyle: FontStyle.italic,
                                                   fontSize: 12),
@@ -98,7 +112,7 @@ class _HomeViewState extends State<HomeView> {
                                       dense: false,
                                       leading: CircleAvatar(
                                         backgroundColor: LIGHT_GREEN,
-                                        child: Text(modelContact.name[0]),
+                                        child: Text("${modelContact?.name[0]}"),
                                       ),
                                       trailing: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -114,7 +128,8 @@ class _HomeViewState extends State<HomeView> {
                                                   child: UpdateContact(
                                                     // index: index,
                                                     // key: key,
-                                                    keyValue: key,
+                                                    keyValue:
+                                                        modelContact!.name,
                                                   ),
                                                 );
                                               }));
@@ -122,10 +137,10 @@ class _HomeViewState extends State<HomeView> {
                                             child: CircleAvatar(
                                               radius: 20,
                                               backgroundColor: LIGHT_GREEN,
-                                              child: Icon(Icons.edit),
+                                              child: const Icon(Icons.edit),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           GestureDetector(
@@ -136,15 +151,15 @@ class _HomeViewState extends State<HomeView> {
                                                     return AlertDialog(
                                                       backgroundColor:
                                                           LIGHT_GREEN,
-                                                      title: Text(
+                                                      title: const Text(
                                                         "Confirmation to delete ",
                                                         style: TextStyle(
                                                             color:
                                                                 Colors.white70),
                                                       ),
                                                       content: Text(
-                                                        "You desire to delete ${modelContact.name} from your Contacts",
-                                                        style: TextStyle(
+                                                        "You desire to delete ${modelContact?.name} from your Contacts",
+                                                        style: const TextStyle(
                                                             color:
                                                                 Colors.white70),
                                                       ),
@@ -159,22 +174,22 @@ class _HomeViewState extends State<HomeView> {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                child: Text(
+                                                                child: const Text(
                                                                   "Cancel",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white54),
                                                                 )),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 20,
                                                             ),
                                                             TextButton(
                                                                 onPressed: () {
                                                                   Navigator.pop(
                                                                       context);
-                                                                  contactBox
-                                                                      .delete(
-                                                                          key);
+                                                                  contactBox.delete(
+                                                                      modelContact
+                                                                          ?.name);
                                                                 },
                                                                 child: Text(
                                                                   "Delete",
@@ -222,7 +237,7 @@ class _HomeViewState extends State<HomeView> {
                         MaterialPageRoute(
                             builder: (context) => BlocProvider(
                                   create: (context) => AddContactBloc(),
-                                  child: AddContact(),
+                                  child: const AddContact(),
                                 )));
                   },
                   child: Container(
@@ -233,14 +248,14 @@ class _HomeViewState extends State<HomeView> {
                           color: LIGHT_GREEN),
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Icon(
                             Icons.edit,
                             color: GREEN_TEXT,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Text("ADD NEW CONTACT",
