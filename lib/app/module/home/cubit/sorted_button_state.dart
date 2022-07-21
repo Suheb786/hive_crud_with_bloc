@@ -1,12 +1,10 @@
-// part of 'sorted_button_cubit.dart';
+import 'package:flutter/material.dart';
 
-// @immutable
-// abstract class SortedButtonState {}
+@immutable
+abstract class SortedButtonState {}
 
-// class SortedButtonInitial extends SortedButtonState {}
+class SortedButtonInitial extends SortedButtonState {}
 
-// class SortedState extends SortedButtonState {
+class SortedState extends SortedButtonState {}
 
-  
-// }
-// class LoadingState extends SortedButtonState {}
+class LoadingState extends SortedButtonState {}

@@ -84,11 +84,11 @@ class _UpdateContactState extends State<UpdateContact> {
                                   child: Container(
                                     color: Colors.red,
                                     child: Text(state.errorMsg),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                   ),
                                 );
                               } else {
-                                return SizedBox.shrink();
+                                return const SizedBox.shrink();
                               }
                             },
                           ),
@@ -130,7 +130,7 @@ class _UpdateContactState extends State<UpdateContact> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -156,7 +156,7 @@ class _UpdateContactState extends State<UpdateContact> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(

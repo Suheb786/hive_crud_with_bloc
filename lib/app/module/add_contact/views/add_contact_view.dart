@@ -62,15 +62,15 @@ class _AddContactState extends State<AddContact> {
                                   child: Container(
                                     color: Colors.red,
                                     child: Text(state.errorMsg),
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                   ),
                                 );
                               } else {
-                                return SizedBox.shrink();
+                                return const SizedBox.shrink();
                               }
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           CustomTextField(
@@ -109,7 +109,7 @@ class _AddContactState extends State<AddContact> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -135,7 +135,7 @@ class _AddContactState extends State<AddContact> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(

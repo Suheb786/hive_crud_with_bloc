@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'app/data/Model/contact_details.dart';
 import 'app/data/constants/theme.dart';
-import 'app/module/add_contact/bloc/add_contact_bloc.dart';
 import 'app/module/home/cubit/home_cubit.dart';
-import 'app/module/home/home_bloc.dart';
 import 'app/module/home/home_view.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized;
