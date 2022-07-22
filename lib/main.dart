@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_crud_with_bloc/app/module/home/cubit/sorted_button_cubit.dart';
 import 'package:hive_crud_with_bloc/app/routes/router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: _appRouter.onGeneratedRouted,
       home: BlocProvider(
-        create: (context) => HomeCubit(),
+        create: (context) => SortedButtonCubit(),
         child: HomeView(),
       ),
     );

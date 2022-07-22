@@ -10,10 +10,13 @@ class ContactModel {
   int phone;
   @HiveField(2)
   var email;
+  @HiveField(3)
+  var dateTime;
 
   ContactModel(
     this.name,
     this.phone,
     this.email,
+    this.dateTime,
   );
 }

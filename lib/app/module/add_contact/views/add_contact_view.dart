@@ -29,6 +29,7 @@ class _AddContactViewState extends State<AddContactView> {
   late final names = nameCtrl.text;
   late final phones = mobileNOCtrl.text;
   late final extraValue = emailCtrl.text;
+  late final dateTime = DateTime.now();
 
   @override
   void initState() {
@@ -148,7 +149,11 @@ class _AddContactViewState extends State<AddContactView> {
                                   fontColor: Colors.white,
                                   onTap: () {
                                     ContactModel modelvalue = ContactModel(
-                                        names, int.parse(phones), extraValue);
+                                      names,
+                                      int.parse(phones),
+                                      extraValue,
+                                      dateTime
+                                    );
                                     // contactBox.add(modelvalue);
                                     contactBox.put(modelvalue.name, modelvalue);
                                     Navigator.pop(context);

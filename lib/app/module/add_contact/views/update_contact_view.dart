@@ -35,7 +35,7 @@ class _UpdateContactState extends State<UpdateContact> {
   late final names = nameCtrl.text;
   late final phones = mobileNOCtrl.text;
   late final extraValue = emailCtrl.text;
-
+  late final updatedTime = DateTime.now();
   @override
   void initState() {
     contactBox = Hive.box("ContactBox");
@@ -167,7 +167,10 @@ class _UpdateContactState extends State<UpdateContact> {
                                   fontColor: Colors.white,
                                   onTap: () {
                                     ContactModel modelvalue = ContactModel(
-                                        names, int.parse(phones), extraValue);
+                                        names,
+                                        int.parse(phones),
+                                        extraValue,
+                                        updatedTime);
                                     contactBox.put(widget.keyValue, modelvalue);
 
                                     Navigator.pop(context);
