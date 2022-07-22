@@ -13,9 +13,6 @@ import '../../../data/widgets/saveButton.dart';
 import '../bloc/add_contact_bloc.dart';
 import '../../home/home_view.dart';
 
-
-
-
 class UpdateContact extends StatefulWidget {
   String keyValue;
   UpdateContact({

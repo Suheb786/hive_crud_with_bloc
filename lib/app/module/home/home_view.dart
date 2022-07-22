@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/Model/contact_details.dart';
+import '../../routes/router.dart';
 import '../add_contact/bloc/add_contact_bloc.dart';
 import '../add_contact/views/add_contact_view.dart';
 import '../add_contact/views/update_contact_view.dart';
@@ -28,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
+  
     contactBox = Hive.box("ContactBox");
     // contactBox.clear();
     super.initState();
@@ -60,10 +62,8 @@ class _HomeViewState extends State<HomeView> {
                               return ListView.separated(
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    // final key = contactBox.keys.toList();
-
-//* Hive Databse is Iterable Database from here it's been sorted by Name -------------->>>>>
-
+                                    // final key = contactBox.keys.toList(); //? also can be used with key but sorting might now work
+//* Hive  is Iterable Database from here it's been sorted by Name -------------->>>>>
                                     final keyValue = contactBox.values.toList();
                                     keyValue.sort((a, b) {
                                       return a.name
@@ -115,19 +115,22 @@ class _HomeViewState extends State<HomeView> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (ctx) {
-                                                return BlocProvider(
-                                                  create: (context) =>
-                                                      AddContactBloc(),
-                                                  child: UpdateContact(
-                                                    // index: index,
-                                                    // key: key,
-                                                    keyValue: modelContact.name,
-                                                  ),
-                                                );
-                                              }));
+                                              Navigator.pushNamed(context,
+                                                  AppRouter.UPDATE_CONTACT , arguments:  modelContact.name);
+
+                                              // Navigator.of(context).push(
+                                              //     MaterialPageRoute(
+                                              //         builder: (ctx) {
+                                              //   return BlocProvider(
+                                              //     create: (context) =>
+                                              //         AddContactBloc(),
+                                              //     child: UpdateContact(
+                                              //       // index: index,
+                                              //       // key: key,
+                                              //       keyValue: modelContact.name,
+                                              //     ),
+                                              //   );
+                                              // }));
                                             },
                                             child: const CircleAvatar(
                                               radius: 20,
@@ -228,13 +231,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                                  create: (context) => AddContactBloc(),
-                                  child: const AddContact(),
-                                )));
+                    Navigator.pushNamed(context, AppRouter.ADD_CONTACT);
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width,

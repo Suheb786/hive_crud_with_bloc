@@ -12,16 +12,16 @@ import '../../../data/widgets/customTextFormField.dart';
 import '../../../data/widgets/saveButton.dart';
 import '../bloc/add_contact_bloc.dart';
 
-class AddContact extends StatefulWidget {
-  const AddContact({Key? key}) : super(key: key);
+class AddContactView extends StatefulWidget {
+  const AddContactView({Key? key}) : super(key: key);
 
   @override
-  State<AddContact> createState() => _AddContactState();
+  State<AddContactView> createState() => _AddContactViewState();
 }
 
 late Box<ContactModel> contactBox;
 
-class _AddContactState extends State<AddContact> {
+class _AddContactViewState extends State<AddContactView> {
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController mobileNOCtrl = TextEditingController();
   TextEditingController emailCtrl = TextEditingController();
@@ -150,7 +150,7 @@ class _AddContactState extends State<AddContact> {
                                     ContactModel modelvalue = ContactModel(
                                         names, int.parse(phones), extraValue);
                                     // contactBox.add(modelvalue);
-contactBox.put(modelvalue.name, modelvalue);
+                                    contactBox.put(modelvalue.name, modelvalue);
                                     Navigator.pop(context);
                                   })
                               : SaveButton(
