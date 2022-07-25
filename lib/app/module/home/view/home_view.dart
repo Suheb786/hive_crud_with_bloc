@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_crud_with_bloc/app/module/home/cubit/sorted_button_state.dart';
+import '../cubit/sorted_button_state.dart';
 
-import '../../data/Model/contact_details.dart';
-import '../../routes/router.dart';
-import '../add_contact/bloc/add_contact_bloc.dart';
-import '../add_contact/views/add_contact_view.dart';
-import '../add_contact/views/update_contact_view.dart';
-import 'cubit/home_cubit.dart';
-import 'cubit/home_state.dart';
+import '../../../data/Model/contact_details.dart';
+import '../../../routes/router.dart';
+import '../../add_contact/bloc/add_contact_bloc.dart';
+import '../../add_contact/views/add_contact_view.dart';
+import '../../add_contact/views/update_contact_view.dart';
+
 
 import 'package:hive_flutter/hive_flutter.dart';
-import '../../data/constants/colors.dart';
-import 'cubit/sorted_button_cubit.dart';
+import '../../../data/constants/colors.dart';
+import '../cubit/sorted_button_cubit.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);

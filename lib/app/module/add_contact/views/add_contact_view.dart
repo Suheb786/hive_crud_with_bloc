@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../data/Model/contact_details.dart';
 import '../../../data/constants/colors.dart';
 import '../../../data/widgets/customTextFormField.dart';
@@ -46,8 +47,43 @@ class _AddContactViewState extends State<AddContactView> {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15),
+                  child: Expanded(
+                      child: Stack(
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: LIGHT_GREEN,
+                        radius: 70,
+                        child: Icon(
+                          Icons.person,
+                          color: DARK_GREEN,
+                          size: 80,
+                        ),
+                      ),
+                      Positioned(
+                        right: 10,
+                        bottom: 10,
+                        child: GestureDetector(
+                          onTap: () {
+                            ImagePicker();
+                          },
+                          child: CircleAvatar(
+                            radius: 18,
+                            backgroundColor: DARK_BLUE,
+                            child: const Icon(
+                              Icons.edit,
+                              size: 20,
+                              color: Colors.white38,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+                ),
                 Expanded(
-                  // flex: 10,
+                  flex: 8,
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -149,11 +185,10 @@ class _AddContactViewState extends State<AddContactView> {
                                   fontColor: Colors.white,
                                   onTap: () {
                                     ContactModel modelvalue = ContactModel(
-                                      names,
-                                      int.parse(phones),
-                                      extraValue,
-                                      dateTime
-                                    );
+                                        names,
+                                        int.parse(phones),
+                                        extraValue,
+                                        dateTime);
                                     // contactBox.add(modelvalue);
                                     contactBox.put(modelvalue.name, modelvalue);
                                     Navigator.pop(context);

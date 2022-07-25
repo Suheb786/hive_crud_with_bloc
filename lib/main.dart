@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_crud_with_bloc/app/module/home/cubit/sorted_button_cubit.dart';
-import 'package:hive_crud_with_bloc/app/routes/router.dart';
+import 'app/module/home/cubit/sorted_button_cubit.dart';
+import 'app/routes/router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app/data/Model/contact_details.dart';
 import 'app/data/constants/theme.dart';
-import 'app/module/home/cubit/home_cubit.dart';
-import 'app/module/home/home_view.dart';
+
+import 'app/module/home/view/home_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized;

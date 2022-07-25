@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
+import '../../../data/Model/contact_details.dart';
 
 @immutable
 abstract class SortedButtonState {}

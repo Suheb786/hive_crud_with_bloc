@@ -1,8 +1,5 @@
 import 'dart:developer';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -11,7 +8,6 @@ import '../../../data/constants/colors.dart';
 import '../../../data/widgets/customTextFormField.dart';
 import '../../../data/widgets/saveButton.dart';
 import '../bloc/add_contact_bloc.dart';
-import '../../home/home_view.dart';
 
 class UpdateContact extends StatefulWidget {
   String keyValue;

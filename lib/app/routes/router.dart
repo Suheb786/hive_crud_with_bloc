@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/bloc/add_contact_bloc.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/views/add_contact_view.dart';
-import 'package:hive_crud_with_bloc/app/module/add_contact/views/update_contact_view.dart';
-import 'package:hive_crud_with_bloc/app/module/home/home_view.dart';
+import '../module/add_contact/bloc/add_contact_bloc.dart';
+import '../module/add_contact/views/add_contact_view.dart';
+import '../module/add_contact/views/update_contact_view.dart';
+import '../module/home/view/home_view.dart';
 
 import '../data/Model/contact_details.dart';
 
