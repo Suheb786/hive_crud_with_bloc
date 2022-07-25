@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,22 +51,9 @@ class _HomeViewState extends State<HomeView> {
                 return PopupMenuButton(
                     color: LIGHT_GREEN,
                     onSelected: (value) {
-                      if (value == 0) {
-                        BlocProvider.of<SortedButtonCubit>(context)
-                            .sortedbyName(keyValue);
-                      }
-                      if (value == 1) {
-                        BlocProvider.of<SortedButtonCubit>(context)
-                            .sortbyDateTime(keyValue);
-                      }
-                      if (value == 2) {
-                        BlocProvider.of<SortedButtonCubit>(context)
-                            .sortedbyEmail(keyValue);
-                      }
-                      if (value == 3) {
-                        BlocProvider.of<SortedButtonCubit>(context)
-                            .sortedbyPhone(keyValue);
-                      }
+                      context
+                          .read<SortedButtonCubit>()
+                          .sortBy(value, context, keyValue);
                     },
                     itemBuilder: ((context) {
                       return [
@@ -116,22 +102,11 @@ class _HomeViewState extends State<HomeView> {
                             itemBuilder: (context, index) {
                               // final key = contactBox.keys.toList(); //? also can be used with key but sorting might now work
 //* Hive  is Iterable Database with keys from here it's been sorted by Name -------------->>>>>
-                              // final keyValue = contactBox.values.toList();
-
-                              // keyValue.sort((a, b) {
-                              //   return a.dateTime
-                              //       .toString()
-                              //       .toLowerCase()
-                              //       .compareTo(b.dateTime
-                              //           .toString()
-                              //           .toLowerCase());
-                              // });
-                              // log(key.toString());
 
                               final ContactModel modelContact =
                                   (state is SortedState)
                                       ? state.sortedContectList[index]
-                                      : keyValue[index];
+                                      : contactBox.values.toList()[index];
                               return ListTile(
                                 title: Text("${modelContact.name}",
                                     style:
@@ -257,7 +232,7 @@ class _HomeViewState extends State<HomeView> {
                                 color: LIGHT_GREEN,
                               );
                             }),
-                            itemCount: contactBox.keys.toList().length);
+                            itemCount: contactBox.values.toList().length);
                       }),
                     );
                   },

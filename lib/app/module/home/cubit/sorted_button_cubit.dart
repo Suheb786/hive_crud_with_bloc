@@ -1,6 +1,8 @@
 // ! need to be implement
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_crud_with_bloc/app/data/Model/contact_details.dart';
 import 'package:hive_crud_with_bloc/app/module/home/cubit/sorted_button_state.dart';
@@ -56,5 +58,20 @@ class SortedButtonCubit extends Cubit<SortedButtonState> {
     });
 
     emit(SortedState(keyValue));
+  }
+
+  void sortBy(value, BuildContext context, List<ContactModel> keyValue) {
+    if (value == 0) {
+      BlocProvider.of<SortedButtonCubit>(context).sortedbyName(keyValue);
+    }
+    if (value == 1) {
+      BlocProvider.of<SortedButtonCubit>(context).sortbyDateTime(keyValue);
+    }
+    if (value == 2) {
+      BlocProvider.of<SortedButtonCubit>(context).sortedbyEmail(keyValue);
+    }
+    if (value == 3) {
+      BlocProvider.of<SortedButtonCubit>(context).sortedbyPhone(keyValue);
+    }
   }
 }
